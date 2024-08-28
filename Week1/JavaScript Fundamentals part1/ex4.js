@@ -12,3 +12,4 @@ let caculateTip = (bill)=>{
     return bill>=50 && bill<=300 ?bill*0.15:bill*0.2;
 }
 console.log(`The bill was ${bill[0]}, the tip was ${caculateTip(bill[0])}, and  the total value ${bill+caculateTip(bill[0])}`);
+    
