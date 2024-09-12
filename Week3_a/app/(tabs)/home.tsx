@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     left: 0,
     
   },
+  
   gradient:{
     width:'100%',
     height:'100%',

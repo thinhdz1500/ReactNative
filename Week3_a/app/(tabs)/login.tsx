@@ -1,9 +1,10 @@
+import { NavigationProp } from '@react-navigation/native';
 import { Link } from 'expo-router/build/link/Link';
 import { Image, StyleSheet, Platform, View,Text, Button, Pressable, TextInput } from 'react-native';
 // import LinearGradient from 'react-native-linear-gradient';
 
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}:{navigation: NavigationProp<any>}) {
     const newLocal = "text";
   return (
     <View style={{flex: 1, backgroundColor: '#D8EFDF',width: '100%', height: '100%', padding:25}}>
@@ -21,7 +22,7 @@ export default function HomeScreen() {
       </View>
       <View style = {{...styles.text,flex:2}}>
         <Text style = {{margin: 10}}>When you agree to terms and conditions</Text>
-        <Link href={'/'} style = {{margin: 10,color:'blue'}}>For got your password?</Link>
+        <Link href={'/'} style = {{margin: 10,color:'blue'}} onPress={()=>navigation.navigate('forget')}>For got your password?</Link>
         <Text style = {{margin: 10}}>Or login with</Text>
       </View>
       <View style = {{flex:1, flexDirection:'row',justifyContent:'center'}}>

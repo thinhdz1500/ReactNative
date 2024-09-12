@@ -54,7 +54,7 @@ export default function HomeScreen() {
               name="gender"
               value={"female"}
               style={{ width: 20, height: 18, borderWidth: 2,  marginRight:15}}
-
+        
             />
             <Text style = {{fontSize: 18,fontFamily:'Roboto',}}>Female</Text>
           </label>
