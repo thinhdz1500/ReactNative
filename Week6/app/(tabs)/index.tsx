@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,7 +9,12 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-
+type ItemData = {
+  id: number;
+  name: string;
+  shop: string;
+  img: string;
+};
 const DATA:ItemData[] = [{
   id:1,
   name:'Ca nấu lẩu, nấu súp mini...',
@@ -50,9 +56,9 @@ const DATA:ItemData[] = [{
 ]
 
 
-const Item = ({item}) => (
+const Item = ({item}:{item:ItemData}) => (
   <View style={styles.item}>
-    <Image source={require('do_choi_dang_mo_hinh.png')}/>
+    <Image source={require(`../../assets/images/xa_can_cau.png`)}/>
     <View style={{}}>
       <Text style={styles.title}>{item.name}</Text>
       <Text style={styles.titleShop}>Shop {item.shop}</Text>
@@ -73,7 +79,7 @@ export default function App() {
       <FlatList
         data={DATA}
         renderItem={Item}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id.toString()}
       />
     </SafeAreaView>
 
