@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,56 +9,17 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+
 type ItemData = {
   id: number;
   name: string;
   shop: string;
   img: string;
 };
-const DATA:ItemData[] = [{
-  id:1,
-  name:'Ca nấu lẩu, nấu súp mini...',
-  shop:'Devang',
-  img:'ca_nau_lau.png'
-},
-{id:2,
-  name:'1KG KHÔ GÀ BƠ TỎI...',
-  shop:'LTD Food',
-  img:'ga_bo_toi.png'
-},
-{id:3,
-  name:'Xe cần cẩu đa năng...',
-  shop:'Thế giới đồ chơi',
-  img:'xa_can_cau.png'
-},
 
-{id:4,
-  name:'Đồ chơi dạng mô hình.',
-  shop:'Thế giới đồ chơi',
-  img:'do_choi_dang_mo_hinh.png'
-},
-
-{id:5,
-  name:'Lãnh đạo giản đơn...',
-  shop:'Minh Long Book',
-  img:'lanh_dao_gian_don.png'
-},
-{id:6,
-  name:'Hiểu lòng trẻ con',
-  shop:'Minh Long Book',
-  img:'hieu_long_con_tre.png'
-},
-{id:7,
-  name:'Tổng thống thiên tài',
-  shop:'Minh Long Book',
-  img:'hieu_long_con_tre.png'
-},
-]
-
-
-const Item = ({item}:{item:ItemData}) => (
+const Item = ({item}: {item: ItemData}) => (
   <View style={styles.item}>
-    <Image source={require(`../../assets/images/xa_can_cau.png`)}/>
+    <Image source={require('../../assets/images/xa_can_cau.png')}/>
     <View style={{}}>
       <Text style={styles.title}>{item.name}</Text>
       <Text style={styles.titleShop}>Shop {item.shop}</Text>
@@ -70,21 +31,31 @@ const Item = ({item}:{item:ItemData}) => (
     </View>
   </View>
 );
-export default function App() {
+
+export default function App({navigation}:any) {
+  const [items, setItems] = useState<ItemData[]>([]);
+
+  useEffect(() => {
+    fetch('https://66fa8b58afc569e13a9c2ad1.mockapi.io/apilab6/items/items')
+      .then(response => response.json())
+      .then(json => setItems(json))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []); // Empty dependency array means this effect runs once on mount
+
   return (
-        <SafeAreaView style={styles.container}>
-        <Text style={{margin:10}}>
-          Bạn có thắc mắc với sản phẩm vừa xem đừng ngại chát với shop!
-        </Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={{margin:10}}>
+        Bạn có thắc mắc với sản phẩm vừa xem đừng ngại chát với shop!
+      </Text>
       <FlatList
-        data={DATA}
-        renderItem={Item}
+        data={items}
+        renderItem={({item}) => <Item item={item} />}
         keyExtractor={(item) => item.id.toString()}
       />
     </SafeAreaView>
-
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
