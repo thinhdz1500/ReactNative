@@ -20,7 +20,9 @@ export default function HomeScreen() {
     <ImageContext.Provider value={imageMap}>
       <NavigationContainer independent={true}>
         <Stack.Navigator>
-          <Stack.Screen name="screen1" component={screen1} />
+          <Stack.Screen name="screen1" component={screen1} 
+            options={{headerShown:false}}
+/>
           <Stack.Screen name = "detail" component={Detail}/>
         </Stack.Navigator>
       </NavigationContainer>
