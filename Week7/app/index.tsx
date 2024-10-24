@@ -1,11 +1,11 @@
-import React from "react";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from '@react-navigation/stack';
 import NoteApp from "./(tabs)/noteApp";
 import UpdateNote from "./(tabs)/updateNote";
 import EnterEmail from "./(tabs)/Screen1";
 import Header from "./(tabs)/Header"
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 export default function HomeScreen() {
   return (
