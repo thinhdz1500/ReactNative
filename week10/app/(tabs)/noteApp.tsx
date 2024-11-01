@@ -1,7 +1,9 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import React, { useEffect, useState } from "react";
-import { FlatList, Pressable, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, FlatList, Pressable, Text, TextInput, View } from "react-native";
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTodosRequest } from '../presentation/Saga Redux/actions';
 type initNote = {
     id: string,
     email: string,
@@ -13,24 +15,30 @@ type initNote = {
 const NoteApp = ({ navigation, route }: { navigation: any, route: any }) => {
     const [notes, setNotes] = useState<initNote[]>([]);
     const { email, refresh }: { email?: string, refresh: boolean } = route.params
-    console.log('email: ' + email);
+    const dispatch = useDispatch();
+    const { todos, loading, error } = useSelector(state => state.todos);
 
-    const deleteNote = async (id: string) => {
-        try {
-            const response = await fetch(`https://66ff350c2b9aac9c997e843e.mockapi.io/note/${id}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) {
-                console.log("delete ok");
-                setNotes(prevNotes => prevNotes.filter(note => note.id !== id))
-            }
-            else {
-                console.error("error delete data: ", response.status);
-            }
-        } catch (error) {
+    // const deleteNote = async (id: string) => {
+    //     try {
+    //         const response = await fetch(`https://66ff350c2b9aac9c997e843e.mockapi.io/note/${id}`, {
+    //             method: 'DELETE',
+    //         });
+    //         if (!response.ok) {
+    //             console.log("delete ok");
+    //             setNotes(prevNotes => prevNotes.filter(note => note.id !== id))
+    //         }
+    //         else {
+    //             console.error("error delete data: ", response.status);
+    //         }
+    //     } catch (error) {
 
-        }
+    //     }
+    // }
+    const deleteNote = (id) => {
+        dispatch(deleteTodosRequest(id))
     }
+    if (loading) { return <ActivityIndicator size="large" color="#0000ff" />; } 
+    if (error) { return <Text>Error: {error}</Text>; }
     const Item = ({ item }: { item: initNote }) => {
         return (
 
